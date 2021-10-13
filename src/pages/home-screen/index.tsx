@@ -4,6 +4,7 @@ import shallow from 'zustand/shallow';
 
 import JobTable from '../../components/job-table';
 import NavBar from '../../components/nav-bar';
+import { ThemeToggler } from '../../components/theme-toggler';
 import MapContainer from '../../containers/map-container';
 import { useJobsStore } from '../../stores/use-jobs-store';
 import { useUserStore } from '../../stores/use-user-store';
@@ -24,6 +25,9 @@ export default function HomeScreen() {
 
   return (
     <Box w="100%" h="100vh">
+      <Flex bottom="10" zIndex="10" w="40px" h="40px" pos="absolute">
+        <ThemeToggler />
+      </Flex>
       <Box h="8%">
         <NavBar />
       </Box>
