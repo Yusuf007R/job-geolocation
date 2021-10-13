@@ -25,7 +25,8 @@ import { useUserStore } from '../../stores/use-user-store';
 export default function ProfilePopover() {
   const user = useUserStore((state) => state.user);
   return (
-    <Popover>
+    // eslint-disable-next-line jsx-a11y/no-autofocus
+    <Popover autoFocus={false}>
       <PopoverTrigger>
         <Box role="button" tabIndex={0}>
           <Avatar name={user?.name} />

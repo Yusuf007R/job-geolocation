@@ -44,5 +44,6 @@ module.exports = {
     ],
     'react/self-closing-comp': ['error'],
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/ban-ts-comment': ['off'],
   },
 };
