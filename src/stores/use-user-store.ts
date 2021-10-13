@@ -3,7 +3,7 @@ import { devtools, persist } from 'zustand/middleware';
 
 import { api } from '../services';
 import { loginResponseType, loginType, userInformationType } from '../services/dto';
-import { request } from '../utils/request';
+import { request, setAuthToken } from '../utils/request';
 
 type storeType = {
   user: userInformationType | null;
@@ -11,6 +11,8 @@ type storeType = {
   accessToken: string | null;
   getUserInfo: () => void;
   logout: () => void;
+  isAuthenticated: boolean;
+  setAuth: () => void;
 };
 
 export const useUserStore = create<storeType>(
@@ -19,6 +21,7 @@ export const useUserStore = create<storeType>(
       (set, get) => ({
         user: null,
         accessToken: null,
+        isAuthenticated: false,
         login: async (data) => {
           const { getUserInfo } = get();
           const response = await api.login(data);
@@ -35,18 +38,20 @@ export const useUserStore = create<storeType>(
           }
         },
         logout: () => {
-          set({ accessToken: null, user: null });
+          set({ accessToken: null, user: null, isAuthenticated: false });
           request.deleteHeader('Authorization');
+        },
+        setAuth: () => {
+          const { accessToken } = get();
+          if (!accessToken) return;
+          setAuthToken(accessToken);
+          set({ isAuthenticated: true });
         },
       }),
       {
         name: 'user-store',
+        partialize: (state) => ({ accessToken: state.accessToken, user: state.user }),
       },
     ),
   ),
 );
-
-useUserStore.subscribe((state) => {
-  if (state.accessToken)
-    return request.setHeader('Authorization', `Bearer ${state.accessToken}`);
-});

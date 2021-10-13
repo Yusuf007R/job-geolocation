@@ -33,11 +33,13 @@ export interface jobItem {
   longitude: string;
   image: string;
   date: Date;
-  status: string;
+  status: jobStatus;
   assigned_to: string;
   created_at: Date;
   updated_at: Date;
 }
+
+type jobStatus = 'complete' | 'in progress' | 'pending';
 
 export interface linkItem {
   url: null | string;

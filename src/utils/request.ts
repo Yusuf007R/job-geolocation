@@ -9,3 +9,7 @@ export const request = create({
     'Content-Type': 'application/json',
   },
 });
+
+export const setAuthToken = (token: string) => {
+  request.setHeader('Authorization', `Bearer ${token}`);
+};
