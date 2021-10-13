@@ -17,7 +17,7 @@ export default function TableItem({ id, status, title, latitude, longitude }: jo
     setMapCenter({ lat: Number.parseInt(latitude), lng: Number.parseInt(longitude) });
   };
   return (
-    <Tr>
+    <Tr h="5vh">
       <Td>{id}</Td>
       <Td>{title}</Td>
       <Td isNumeric>

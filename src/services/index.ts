@@ -8,8 +8,8 @@ async function login(data: loginType): Promise<loginResponseType | null> {
   return handleResponse<loginResponseType>(response);
 }
 
-async function getJobs(): Promise<jobsListType | null> {
-  const response = await request.get<jobsListType>(`/jobs`);
+async function getJobs(page: number): Promise<jobsListType | null> {
+  const response = await request.get<jobsListType>(`/jobs?page=${page}`);
   return handleResponse<jobsListType>(response);
 }
 

@@ -1,31 +1,21 @@
-import { Button } from '@chakra-ui/button';
-import { useDisclosure } from '@chakra-ui/hooks';
-import { Box, Flex, Heading, Spacer } from '@chakra-ui/layout';
+import { HamburgerIcon } from '@chakra-ui/icons';
+import { Flex, Heading } from '@chakra-ui/layout';
 import React from 'react';
 
-import { useUserStore } from '../../stores/use-user-store';
-import LoginModal from '../login-modal';
-import ProfilePopover from '../profile-popover';
+import { useHomeStore } from '../../stores/use-home-store';
+import LoginMenu from '../login-profile';
 
 export default function NavBar() {
-  const user = useUserStore((state) => state.user);
-  const { onClose, onOpen, isOpen } = useDisclosure();
+  const toggleDrawer = useHomeStore((state) => state.toggleDrawer);
   return (
-    <Flex shadow="md" align="center" h="100%">
-      <LoginModal isOpen={isOpen} onClose={onClose} />
+    <Flex shadow="md" align="center" h="100%" justify="space-between">
       <Heading p="4" size="lg">
         GeoJobFinder
       </Heading>
-      <Spacer />
-      <Box mr="3">
-        {user ? (
-          <ProfilePopover />
-        ) : (
-          <Button onClick={onOpen} colorScheme="purple">
-            Log in
-          </Button>
-        )}
-      </Box>
+      <Flex w="24" direction="row" align="center" justify="space-between" mr="2">
+        <LoginMenu />
+        <HamburgerIcon w="30px" h="30px" onClick={toggleDrawer} />
+      </Flex>
     </Flex>
   );
 }
