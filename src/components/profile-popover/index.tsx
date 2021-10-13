@@ -19,11 +19,15 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
+import shallow from 'zustand/shallow';
 
 import { useUserStore } from '../../stores/use-user-store';
 
 export default function ProfilePopover() {
-  const user = useUserStore((state) => state.user);
+  const { user, logout } = useUserStore(
+    (state) => ({ user: state.user, logout: state.logout }),
+    shallow,
+  );
   return (
     // eslint-disable-next-line jsx-a11y/no-autofocus
     <Popover autoFocus={false}>
@@ -55,8 +59,9 @@ export default function ProfilePopover() {
           <Flex>
             <Spacer />
             <ButtonGroup size="md">
-              <Button colorScheme="purple">Edit Profile</Button>
-              <Button colorScheme="red">Log out</Button>
+              <Button onClick={logout} colorScheme="red">
+                Log out
+              </Button>
             </ButtonGroup>
           </Flex>
         </PopoverFooter>

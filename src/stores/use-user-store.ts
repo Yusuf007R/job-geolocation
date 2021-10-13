@@ -23,11 +23,9 @@ export const useUserStore = create<storeType>(
         accessToken: null,
         isAuthenticated: false,
         login: async (data) => {
-          const { getUserInfo } = get();
           const response = await api.login(data);
           if (response) {
             set({ accessToken: response.access_token });
-            getUserInfo();
           }
           return response;
         },
@@ -42,10 +40,11 @@ export const useUserStore = create<storeType>(
           request.deleteHeader('Authorization');
         },
         setAuth: () => {
-          const { accessToken } = get();
+          const { accessToken, getUserInfo } = get();
           if (!accessToken) return;
           setAuthToken(accessToken);
           set({ isAuthenticated: true });
+          getUserInfo();
         },
       }),
       {

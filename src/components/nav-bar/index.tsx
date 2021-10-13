@@ -11,7 +11,7 @@ export default function NavBar() {
   const user = useUserStore((state) => state.user);
   const { onClose, onOpen, isOpen } = useDisclosure();
   return (
-    <Flex shadow="md" align="center">
+    <Flex shadow="md" align="center" h="100%">
       <LoginModal isOpen={isOpen} onClose={onClose} />
       <Heading p="4" size="lg">
         GeoJobFinder

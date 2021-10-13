@@ -59,7 +59,7 @@ export default function LoginModal({ onClose, isOpen }: propType) {
         <ModalHeader>Sign In</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <FormControl isInvalid={error}>
+          <FormControl onSubmit={handleOnLogin} isInvalid={error}>
             <FormLabel>Email address</FormLabel>
             <Input onChange={handleOnChangeEmail} value={loginData.email} type="email" />
             <FormLabel>Password</FormLabel>
