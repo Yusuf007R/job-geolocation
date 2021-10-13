@@ -2,31 +2,67 @@ import { CloseButton } from '@chakra-ui/close-button';
 import { useBoolean } from '@chakra-ui/hooks';
 import { Image } from '@chakra-ui/image';
 import { Badge, Box, Center, Flex, Text } from '@chakra-ui/layout';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import shallow from 'zustand/shallow';
 
 import { ReactComponent as Logo } from '../../assets/marker-icon.svg';
 import { jobItem } from '../../services/dto';
+import { useHomeStore } from '../../stores/use-home-store';
+import { useJobsStore } from '../../stores/use-jobs-store';
 
 type propType = {
   lat: number;
   lng: number;
 } & jobItem;
 
-export default function MapPopUp({ image, title, description, status }: propType) {
+export default function MapPopUp({
+  image,
+  title,
+  description,
+  assigned_to,
+  lat,
+  lng,
+  id,
+  date: rawDate,
+}: propType) {
   const [isOpen, handleOpen] = useBoolean();
+  const { mapCenter, currentOpenPopup, setCurrentOpenPopup } = useHomeStore(
+    (state) => ({
+      mapCenter: state.mapCenter,
+      currentOpenPopup: state.currentOpenPopup,
+      setCurrentOpenPopup: state.setCurrentOpenPopup,
+    }),
+    shallow,
+  );
 
-  const statusColor = (() => {
-    if (status == 'complete') return 'green';
-    if (status == 'pending') return 'yellow';
-    return 'blue';
+  const date = (() => {
+    const dateObj = new Date(rawDate);
+    return `${dateObj.getDate()}-${dateObj.getMonth()}-${dateObj.getFullYear()}`;
   })();
+  useEffect(() => {
+    if (currentOpenPopup != id) handleOpen.off();
+  }, [currentOpenPopup]);
+
+  useEffect(() => {
+    if (mapCenter.lat == lat && mapCenter.lng == lng) setTimeout(handleOpenClick, 200);
+  }, [mapCenter]);
+
+  const handleOpenClick = () => {
+    setCurrentOpenPopup(id);
+    handleOpen.on();
+  };
+
+  const handleCloseClick = () => {
+    setCurrentOpenPopup(null);
+    handleOpen.off();
+  };
 
   return (
     <Fragment>
       {isOpen ? (
-        <Box w="200px" bg="white" rounded="lg">
+        <Box w="250px" bg="white" rounded="lg">
           <Flex justify="flex-end" p="0">
-            <CloseButton size="sm" onClick={handleOpen.off} />
+            <CloseButton size="sm" onClick={handleCloseClick} />
           </Flex>
           <Box direction="column" p="4" pt="0">
             <Center>
@@ -46,14 +82,17 @@ export default function MapPopUp({ image, title, description, status }: propType
             </Flex>
             <Flex pt="2">
               <Text pr="2" fontWeight="bold">
-                Status:
+                Assigned to:
               </Text>
-              <Badge colorScheme={statusColor}>{status}</Badge>
+              <Text> {assigned_to}</Text>
+            </Flex>
+            <Flex justify="end" pt="2">
+              <Text>{date}</Text>
             </Flex>
           </Box>
         </Box>
       ) : (
-        <Box _hover={{ cursor: 'pointer' }} onClick={handleOpen.on}>
+        <Box _hover={{ cursor: 'pointer' }} onClick={handleOpenClick}>
           <Logo fill="red" width="30px" />
         </Box>
       )}

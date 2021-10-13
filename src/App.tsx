@@ -5,11 +5,14 @@ import HomeScreen from './pages/home-screen';
 import { useUserStore } from './stores/use-user-store';
 
 function App() {
-  const setAuth = useUserStore((state) => state.setAuth);
+  const { accessToken, setAuth } = useUserStore((state) => ({
+    accessToken: state.accessToken,
+    setAuth: state.setAuth,
+  }));
 
   useEffect(() => {
     setAuth();
-  }, []);
+  }, [accessToken]);
 
   return (
     <ChakraProvider>
