@@ -46,5 +46,3 @@ This project is used by the following:
 ## 😳License
 
 [WTFPL](http://www.wtfpl.net/about/)
-
-  
