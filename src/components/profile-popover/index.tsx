@@ -20,12 +20,15 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 
+import { useUserStore } from '../../stores/use-user-store';
+
 export default function ProfilePopover() {
+  const user = useUserStore((state) => state.user);
   return (
     <Popover>
       <PopoverTrigger>
         <Box role="button" tabIndex={0}>
-          <Avatar name="Sasuke Uchiha" />
+          <Avatar name={user?.name} />
         </Box>
       </PopoverTrigger>
       <PopoverContent>
@@ -40,11 +43,11 @@ export default function ProfilePopover() {
         </PopoverHeader>
         <PopoverBody p="5">
           <Flex direction="column" justify="center" align="center">
-            <Avatar name="Sasuke Uchiha" size="xl" />
+            <Avatar name={user?.name} size="xl" />
             <Text fontWeight="bold" fontSize="xl">
-              Sasuke Uchiha
+              {user?.name}
             </Text>
-            <Text>test@test.com</Text>
+            <Text>{user?.email}</Text>
           </Flex>
         </PopoverBody>
         <PopoverFooter>
