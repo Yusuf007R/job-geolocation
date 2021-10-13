@@ -15,6 +15,7 @@ export default function HomeScreen() {
     shallow,
   );
   const isAuthenticated = useUserStore((state) => state.isAuthenticated);
+
   useEffect(() => {
     userLocation();
     if (!isAuthenticated) return;
@@ -27,10 +28,8 @@ export default function HomeScreen() {
         <NavBar />
       </Box>
       <Flex h="92%">
-        <Box w="20%">
-          <JobTable jobList={jobList} />
-        </Box>
-        <Box w="80%" h="full">
+        <JobTable jobList={jobList} />
+        <Box w="full" h="full">
           <MapContainer jobsList={jobList} />
         </Box>
       </Flex>
