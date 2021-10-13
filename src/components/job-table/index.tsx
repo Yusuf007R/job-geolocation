@@ -6,7 +6,6 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
-  DrawerOverlay,
 } from '@chakra-ui/modal';
 import { Table, Tbody, Th, Thead, Tr } from '@chakra-ui/table';
 import React, { Fragment } from 'react';
@@ -32,7 +31,6 @@ export default function JobTable({ jobList }: propType) {
   return (
     <Fragment>
       <Drawer size="md" isOpen={isOpen} placement="right" onClose={onClose}>
-        <DrawerOverlay />
         <DrawerContent>
           <DrawerHeader>
             <DrawerCloseButton />

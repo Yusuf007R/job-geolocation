@@ -1,4 +1,5 @@
 import { CloseButton } from '@chakra-ui/close-button';
+import { useColorModeValue } from '@chakra-ui/color-mode';
 import { useBoolean } from '@chakra-ui/hooks';
 import { Image } from '@chakra-ui/image';
 import { Badge, Box, Center, Flex, Text } from '@chakra-ui/layout';
@@ -57,10 +58,11 @@ export default function MapPopUp({
     handleOpen.off();
   };
 
+  const bg = useColorModeValue('white', 'black');
   return (
     <Fragment>
       {isOpen ? (
-        <Box w="250px" bg="white" rounded="lg">
+        <Box bg={bg} w="250px" rounded="lg">
           <Flex justify="flex-end" p="0">
             <CloseButton size="sm" onClick={handleCloseClick} />
           </Flex>
