@@ -3,10 +3,12 @@ import { useDisclosure } from '@chakra-ui/hooks';
 import { Box, Flex, Heading, Spacer } from '@chakra-ui/layout';
 import React from 'react';
 
+import { useUserStore } from '../../stores/use-user-store';
 import LoginModal from '../login-modal';
-// import ProfilePopover from '../profile-popover';
+import ProfilePopover from '../profile-popover';
 
 export default function NavBar() {
+  const user = useUserStore((state) => state.user);
   const { onClose, onOpen, isOpen } = useDisclosure();
   return (
     <Flex shadow="md" align="center">
@@ -16,10 +18,13 @@ export default function NavBar() {
       </Heading>
       <Spacer />
       <Box mr="3">
-        <Button onClick={onOpen} colorScheme="purple">
-          Log in
-        </Button>
-        {/* <ProfilePopover /> */}
+        {user ? (
+          <ProfilePopover />
+        ) : (
+          <Button onClick={onOpen} colorScheme="purple">
+            Log in
+          </Button>
+        )}
       </Box>
     </Flex>
   );
