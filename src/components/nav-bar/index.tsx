@@ -12,7 +12,7 @@ export default function NavBar() {
       <Heading p="4" size="lg">
         GeoJobFinder
       </Heading>
-      <Flex w="24" direction="row" align="center" justify="space-between" mr="2">
+      <Flex w="28" direction="row" align="center" justify="space-between" mr="2">
         <LoginMenu />
         <HamburgerIcon w="30px" h="30px" onClick={toggleDrawer} />
       </Flex>

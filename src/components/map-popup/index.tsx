@@ -2,14 +2,13 @@ import { CloseButton } from '@chakra-ui/close-button';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import { useBoolean } from '@chakra-ui/hooks';
 import { Image } from '@chakra-ui/image';
-import { Badge, Box, Center, Flex, Text } from '@chakra-ui/layout';
+import { Box, Center, Flex, Text } from '@chakra-ui/layout';
 import React, { Fragment, useEffect } from 'react';
 import shallow from 'zustand/shallow';
 
 import { ReactComponent as Logo } from '../../assets/marker-icon.svg';
 import { jobItem } from '../../services/dto';
 import { useHomeStore } from '../../stores/use-home-store';
-import { useJobsStore } from '../../stores/use-jobs-store';
 
 type propType = {
   lat: number;
