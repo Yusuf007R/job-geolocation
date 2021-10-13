@@ -9,12 +9,12 @@ async function login(data: loginType): Promise<loginResponseType | null> {
 }
 
 async function getJobs(): Promise<jobsListType | null> {
-  const response = await request.post<jobsListType>(`/jobs`);
+  const response = await request.get<jobsListType>(`/jobs`);
   return handleResponse<jobsListType>(response);
 }
 
 async function getUserInfo(): Promise<userInformationType | null> {
-  const response = await request.post<userInformationType>(`/auth/me`);
+  const response = await request.get<userInformationType>(`/auth/me`);
   return handleResponse<userInformationType>(response);
 }
 
