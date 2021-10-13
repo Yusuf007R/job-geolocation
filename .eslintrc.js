@@ -41,5 +41,6 @@ module.exports = {
         aspects: ['invalidHref', 'preferButton'],
       },
     ],
+    'react/self-closing-comp': ['error'],
   },
 };
